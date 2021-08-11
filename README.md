@@ -1,2 +1,2 @@
 ### Feeling tipsy?
-Buy me a [0xC0FFEE](https://etherscan.io/address/0xC0FFEE682d236bcac0c86ebb24cc028aaeca33e6)! :yum: :coffee:
+[0xC0FFEE](https://etherscan.io/address/0x48f76A8DbFbCf452EED23f94aB6328f6FAdF9d9D)! :yum: :coffee:
