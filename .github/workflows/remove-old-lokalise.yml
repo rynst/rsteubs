@@ -1,0 +1,12 @@
+name: remove old lokalise
+
+on:
+  pull_request:
+
+jobs:
+  remove-old-lokalise:
+    runs-on: ubuntu-latest
+      if: startsWith(github.head_ref, 'lokalise-') == true
+      steps: 
+         - name: remove old lokalise entries
+        run: node remove-old-lokalise-prs.js
