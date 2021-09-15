@@ -1,10 +1,5 @@
 name: remove old lokalise
-
-on: 
-  pull_request:
-    branches:
-      - '*'
-      
+on: pull_request
 jobs:
   remove-old-lokalise:
     runs-on: ubuntu-latest
