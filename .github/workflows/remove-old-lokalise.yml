@@ -1,7 +1,6 @@
 name: remove old lokalise
 
-on:
-  pull_request:
+on: pull_request
 
 jobs:
   remove-old-lokalise:
