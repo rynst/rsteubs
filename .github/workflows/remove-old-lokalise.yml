@@ -4,6 +4,7 @@ on: pull_request
 jobs:
   remove-old-lokalise:
     runs-on: ubuntu-latest
+    environment: test
     if: startsWith(github.head_ref, 'lokalise-') == true
     steps:
       - uses: actions/checkout@v2
