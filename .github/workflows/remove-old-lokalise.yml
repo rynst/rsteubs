@@ -6,6 +6,7 @@ jobs:
     if: startsWith(github.head_ref, 'lokalise-') == true
     steps:
       - uses: actions/setup-node@v2
+      - uses: ./ 
         with:
           node-version: '10'
       - name: remove old lokalise entries
