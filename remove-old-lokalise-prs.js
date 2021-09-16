@@ -3,7 +3,6 @@ var github = require("@actions/github");
 var token = process.argv.slice(2).join('').substring(6);
 var owner = github.context.repo.owner;
 var repo = github.context.repo.repo;
-var filteredPrs = [];
 console.log("test1232");
 console.log("token:", token);
 console.log("Owner:", owner);
@@ -28,29 +27,29 @@ const parsePullRequestId = githubRef => {
 };
 
 async function main() {
+  
   let pullPromise = pullRequests();
   const currentPullId = parsePullRequestId(process.env.GITHUB_REF);
   console.log("currentPullId:", currentPullId);
-  filteredPrs = await pullPromise.then(prs => { 
+  
+  await pullPromise.then(prs => { 
     console.log("Pull requests:", prs)
-    prs.data.filter( pr => {
+    let filteredPrs = prs.data.filter(pr => {
     let regex = new RegExp('^Lokalise:[ _a-zA-Z0-9]+');
     return regex.test(pr.name) && pr.number != currentPullId;
-  })});
-  
-  //excluding current PR, if none then all past PRs are already deleted
-  if (!filteredPrs.length > 0) return true;
-
-  //otherwise, go ahead and clear them out.
-  filteredPrs.forEach(pr => {
-    octo.rest.pulls.update({
-        owner: owner,
-        repo: repo,
-        pull_number: pr.number,
-        state: 'closed'
+    });
+    if (!filteredPrs.length > 0) return true;
+    //otherwise, go ahead and clear them out.
+    filteredPrs.forEach(pr => {
+      octo.rest.pulls.update({
+          owner: owner,
+          repo: repo,
+          pull_number: pr.number,
+          state: 'closed'
+      });
     });
   });
-
+  
 };
 main().catch(err => {
   console.error(err);
