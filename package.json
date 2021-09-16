@@ -1,0 +1,19 @@
+{
+  "name": "remove-old-lokalise",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "remove-old-lokalise-prs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsteubs/rsteubs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rsteubs/rsteubs/issues"
+  },
+  "homepage": "https://github.com/rsteubs/rsteubs#readme"
+}
