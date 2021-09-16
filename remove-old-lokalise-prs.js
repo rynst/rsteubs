@@ -1,6 +1,6 @@
 var core = require("@actions/core");
 var github = require("@actions/github");
-var token = core.getInput('token');
+var token = process.argv.slice(2);
 var owner = github.context.repo.owner;
 var repo = github.context.repo.repo;
 

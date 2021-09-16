@@ -10,4 +10,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '10'
-      - uses: ./
+      - name: remove old lokalise entries
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node remove-old-lokalise-prs.js GITHUB_TOKEN
