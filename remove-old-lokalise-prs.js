@@ -1,15 +1,10 @@
-//var core = require("@actions/core");
-var github = require("@actions/github");
-var token = process.argv.slice(2).join('').substring(6);
-var owner = github.context.repo.owner;
-var repo = github.context.repo.repo;
-console.log("test1232");
-console.log("token:", token);
-console.log("Owner:", owner);
-console.log("repo:", repo);
+const github = require("@actions/github");
+const token = process.argv.slice(2).join('').substring(6);
+const owner = github.context.repo.owner;
+const repo = github.context.repo.repo;
+const octo = github.getOctokit(token);
 
 const pullRequests = () => {
-  const octo = github.getOctokit(token);
   var response = octo.rest.pulls.list({
         owner: owner,
         repo: repo,
@@ -30,18 +25,16 @@ async function main() {
 
   let pullPromise = pullRequests();
   const currentPullId = parsePullRequestId(process.env.GITHUB_REF);
-  console.log("currentPullId:", currentPullId);
   
-  await pullPromise.then(prs => { 
-    console.log("Pull requests:", prs)
+  await pullPromise.then(prs => {
     let filteredPrs = prs.data.filter(pr => {
-    let regex = new RegExp('^Lokalise:[ _a-zA-Z0-9]+');
-    return regex.test(pr.title) && pr.number != currentPullId;
+      let regex = new RegExp('^Lokalise:[ _a-zA-Z0-9]+');
+      return regex.test(pr.title) && pr.number != currentPullId;
     });
-    console.log("filtered prs:", filteredPrs);
+    
+    //if no extra PRs under Lokalise, exit
     if (!filteredPrs.length > 0) return true;
 
-    const octo = github.getOctokit(token);
     //otherwise, go ahead and clear them out.
     filteredPrs.forEach(pr => {
       octo.rest.pulls.update({
@@ -52,8 +45,8 @@ async function main() {
       });
     });
   });
-  
 };
+
 main().catch(err => {
   console.error(err);
 });;
