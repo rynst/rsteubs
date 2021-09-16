@@ -5,7 +5,7 @@ var owner = github.context.repo.owner;
 var repo = github.context.repo.repo;
 
 const pullRequests = () => {
-  const octokit = github.getOctokit(myToken);
+  const octo = github.getOctokit(token);
   var response = octo.pulls.get({
         owner: owner,
         repo: repo,
