@@ -23,19 +23,19 @@ const parsePullRequestId = githubRef => {
 
 async function main() {
 
-  let pullPromise = pullRequests();
-  const currentPullId = parsePullRequestId(process.env.GITHUB_REF);
+  // current pull request id
+  const pullRequestId = parsePullRequestId(process.env.GITHUB_REF);
   
-  await pullPromise.then(prs => {
+  await pullRequests().then(prs => {
     let filteredPrs = prs.data.filter(pr => {
       let regex = new RegExp('^Lokalise:[ _a-zA-Z0-9]+');
-      return regex.test(pr.title) && pr.number != currentPullId;
+      return regex.test(pr.title) && pr.number != pullRequestId;
     });
     
     //if no extra PRs under Lokalise, exit
     if (!filteredPrs.length > 0) return true;
 
-    //otherwise, go ahead and clear them out.
+    //otherwise, go ahead and set to close and delete the branch.
     filteredPrs.forEach(pr => {
       octo.rest.pulls.update({
           owner: owner,
@@ -43,6 +43,22 @@ async function main() {
           pull_number: pr.number,
           state: 'closed'
       });
+      const { data: pull } = yield octo.rest.pulls.get({
+        owner: owner,
+        repo: repo,
+        pull_number: pr.number
+      });
+      const ref = 'heads/' + pull['head']['ref'];
+      try {
+          yield octokit.rest.git.deleteRef({
+              owner: owner,
+              repo: repo,
+              ref
+          });
+      }
+      catch (error) {
+        console.log(e.message) 
+      }
     });
   });
 };
