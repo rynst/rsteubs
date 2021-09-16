@@ -15,7 +15,7 @@ const pullRequests = () => {
     return response;
 }
 
-function main() {
+async function main() {
   let pullPromise = pullRequests();
   const currentPullId = parsePullRequestId(process.env.GITHUB_REF);
   let filteredPrs = await pullPromise.then(prs => { prs.data.filter( pr => {
