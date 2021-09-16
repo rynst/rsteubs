@@ -43,22 +43,23 @@ async function main() {
           pull_number: pr.number,
           state: 'closed'
       });
-      const { data: pull } = yield octo.rest.pulls.get({
+      octo.rest.pulls.get({
         owner: owner,
         repo: repo,
         pull_number: pr.number
+      }).then(() => {
+        const ref = 'heads/' + pull['head']['ref'];
+        try {
+            yield octokit.rest.git.deleteRef({
+                owner: owner,
+                repo: repo,
+                ref
+            });
+        }
+        catch (error) {
+          console.log(e.message) 
+        }
       });
-      const ref = 'heads/' + pull['head']['ref'];
-      try {
-          yield octokit.rest.git.deleteRef({
-              owner: owner,
-              repo: repo,
-              ref
-          });
-      }
-      catch (error) {
-        console.log(e.message) 
-      }
     });
   });
 };
