@@ -37,6 +37,7 @@ async function main() {
 
     //otherwise, go ahead and set to close and delete the branch.
     filteredPrs.forEach(pr => {
+      //Close Branch
       octo.rest.pulls.update({
           owner: owner,
           repo: repo,
@@ -50,6 +51,7 @@ async function main() {
       }).then(({ data }) => {
         const ref = 'heads/' + data['head']['ref'];
         try {
+          //Delete Branch
           octo.rest.git.deleteRef({
               owner: owner,
               repo: repo,
