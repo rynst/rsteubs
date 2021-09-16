@@ -6,6 +6,7 @@ async function main() {
   const owner = github.context.repo.owner;
   const repo = github.context.repo.repo;
   const octo = github.getOctokit(token);
+  const currentPR = github.context.issue.number;
 
   //Fetch PRs
   octo.rest.pulls.list({
