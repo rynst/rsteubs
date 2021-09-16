@@ -27,7 +27,7 @@ const parsePullRequestId = githubRef => {
 };
 
 async function main() {
-  
+
   let pullPromise = pullRequests();
   const currentPullId = parsePullRequestId(process.env.GITHUB_REF);
   console.log("currentPullId:", currentPullId);
@@ -38,6 +38,7 @@ async function main() {
     let regex = new RegExp('^Lokalise:[ _a-zA-Z0-9]+');
     return regex.test(pr.name) && pr.number != currentPullId;
     });
+    console.log("filtered prs:", filteredPrs);
     if (!filteredPrs.length > 0) return true;
     //otherwise, go ahead and clear them out.
     filteredPrs.forEach(pr => {
