@@ -50,7 +50,7 @@ async function main() {
       }).then(() => {
         const ref = 'heads/' + pull['head']['ref'];
         try {
-            yield octokit.rest.git.deleteRef({
+            octokit.rest.git.deleteRef({
                 owner: owner,
                 repo: repo,
                 ref
