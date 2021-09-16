@@ -4,7 +4,6 @@ on: pull_request
 jobs:
   remove-old-lokalise:
     runs-on: ubuntu-latest
-    environment: test
     if: startsWith(github.head_ref, 'lokalise-') == true
     steps:
       - uses: actions/checkout@v2
@@ -12,4 +11,4 @@ jobs:
         with:
           node-version: '10'
       - name: remove old lokalise entries
-        run: node remove-old-lokalise-prs.js token=${{ secrets.SECRET_NAME }}
+        run: node remove-old-lokalise-prs.js token=${{ secrets.GITHUB_TOKEN }}
