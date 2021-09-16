@@ -3,6 +3,10 @@ var github = require("@actions/github");
 var token = process.argv.slice(2);
 var owner = github.context.repo.owner;
 var repo = github.context.repo.repo;
+console.log("test1232");
+console.log("token:", token);
+console.log("Owner:", owner);
+console.log("repo:", repo);
 
 const pullRequests = () => {
   const octo = github.getOctokit(token);
@@ -25,7 +29,10 @@ const parsePullRequestId = githubRef => {
 async function main() {
   let pullPromise = pullRequests();
   const currentPullId = parsePullRequestId(process.env.GITHUB_REF);
-  let filteredPrs = await pullPromise.then(prs => { prs.filter( pr => {
+  console.log("currentPullId:", currentPullId);
+  let filteredPrs = await pullPromise.then(prs => { 
+    console.log("Pull requests:", prs)
+    prs.filter( pr => {
     let regex = new RegExp('^Lokalise:[ _a-zA-Z0-9]+');
     return regex.test(pr.name) && pr.number != currentPullId;
   })});
