@@ -40,6 +40,8 @@ async function main() {
     });
     console.log("filtered prs:", filteredPrs);
     if (!filteredPrs.length > 0) return true;
+
+    const octo = github.getOctokit(token);
     //otherwise, go ahead and clear them out.
     filteredPrs.forEach(pr => {
       octo.rest.pulls.update({
