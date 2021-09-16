@@ -6,7 +6,7 @@ var repo = github.context.repo.repo;
 
 const pullRequests = () => {
   const octo = github.getOctokit(token);
-  var response = octo.pulls.get({
+  var response = octo.rest.pulls.get({
         owner: owner,
         repo: repo,
     })["catch"]((e) => { 
