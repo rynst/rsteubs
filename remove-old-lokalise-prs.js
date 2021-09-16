@@ -56,7 +56,7 @@ async function main() {
                 ref
             });
         }
-        catch (error) {
+        catch (e) {
           console.log(e.message) 
         }
       });
