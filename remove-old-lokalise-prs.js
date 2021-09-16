@@ -25,7 +25,7 @@ const parsePullRequestId = githubRef => {
 async function main() {
   let pullPromise = pullRequests();
   const currentPullId = parsePullRequestId(process.env.GITHUB_REF);
-  let filteredPrs = await pullPromise.then(prs => { prs.data.filter( pr => {
+  let filteredPrs = await pullPromise.then(prs => { prs.filter( pr => {
     let regex = new RegExp('^Lokalise:[ _a-zA-Z0-9]+');
     return regex.test(pr.name) && pr.number != currentPullId;
   })});
