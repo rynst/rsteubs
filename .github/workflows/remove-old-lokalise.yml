@@ -11,6 +11,4 @@ jobs:
         with:
           node-version: '10'
       - name: remove old lokalise entries
-        env: 
-          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
-        run: node remove-old-lokalise-prs.js token=${{ GITHUB_TOKEN }}
+        run: node remove-old-lokalise-prs.js token=${{ secrets.GITHUB_TOKEN }}
