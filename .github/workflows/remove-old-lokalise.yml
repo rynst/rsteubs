@@ -9,4 +9,4 @@ jobs:
         with:
           node-version: '10'
       - name: remove old lokalise entries
-        run: node remove-old-lokalise-prs.js
+        run: npm start
