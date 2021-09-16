@@ -50,11 +50,11 @@ async function main() {
       }).then(({ data }) => {
         const ref = 'heads/' + data['head']['ref'];
         try {
-            octokit.rest.git.deleteRef({
-                owner: owner,
-                repo: repo,
-                ref
-            });
+          octo.rest.git.deleteRef({
+              owner: owner,
+              repo: repo,
+              ref
+          });
         }
         catch (e) {
           console.log(e.message) 
