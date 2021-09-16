@@ -15,6 +15,13 @@ const pullRequests = () => {
     return response;
 }
 
+const parsePullRequestId = githubRef => {
+  const result = /refs\/pull\/(\d+)\/merge/g.exec(githubRef);
+  if (!result) throw new Error("Reference not found.");
+  const [, pullRequestId] = result;
+  return pullRequestId;
+};
+
 async function main() {
   let pullPromise = pullRequests();
   const currentPullId = parsePullRequestId(process.env.GITHUB_REF);
@@ -37,4 +44,6 @@ async function main() {
   });
 
 };
-main();
+main().catch(err => {
+  console.error(err);
+});;
