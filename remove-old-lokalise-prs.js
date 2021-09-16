@@ -32,7 +32,7 @@ async function main() {
   console.log("currentPullId:", currentPullId);
   let filteredPrs = await pullPromise.then(prs => { 
     console.log("Pull requests:", prs)
-    prs.filter( pr => {
+    prs.data.filter( pr => {
     let regex = new RegExp('^Lokalise:[ _a-zA-Z0-9]+');
     return regex.test(pr.name) && pr.number != currentPullId;
   })});
