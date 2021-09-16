@@ -47,8 +47,8 @@ async function main() {
         owner: owner,
         repo: repo,
         pull_number: pr.number
-      }).then((pull) => {
-        const ref = 'heads/' + pull['head']['ref'];
+      }).then(({ data }) => {
+        const ref = 'heads/' + data['head']['ref'];
         try {
             octokit.rest.git.deleteRef({
                 owner: owner,
