@@ -5,9 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.head_ref, 'lokalise-') == true
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - uses: ./ 
         with:
           node-version: '10'
       - name: remove old lokalise entries
-        run: npm start
+        run: node remove-old-lokalise-prs.js
