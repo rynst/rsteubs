@@ -1,8 +1,5 @@
 name: remove old lokalise
-inputs:
-  token:
-    description: 'GitHub auth token'
-    default: ${{ github.token }}
+
 on: pull_request
 jobs:
   remove-old-lokalise:
@@ -15,3 +12,5 @@ jobs:
           node-version: '10'
       - name: remove old lokalise entries
         run: node remove-old-lokalise-prs.js
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
