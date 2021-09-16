@@ -1,0 +1,8 @@
+name: 'remove old lokalise'
+inputs:
+ token:  
+    required: false
+    default: ${{ secrets.GITHUB_TOKEN }}
+runs:
+  using: 'node12'
+  main: 'remove-old-lokalise-prs.js.js'
